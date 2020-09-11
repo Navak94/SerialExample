@@ -7,17 +7,17 @@ from time import sleep
 
 def serial_ports():
 
-    ports = ['COM%s' % (i + 1) for i in range(256)] # %s is a conversion specifier for string.  so in com%s the %s IS (i+1)
+    ports = ['COM%s' % (i + 1) for i in range(256)] 
 
     result = []
 
-    for port in ports: # loop through coms until something responds
+    for port in ports: 
         try:
-            s = serial.Serial(port) #peek to see if something is on the com
+            s = serial.Serial(port) 
             s.close()  
-            result.append(port) #eyyy lookit that something's there! append it to the list
-        except (OSError, serial.SerialException): #ruh roh nothing's there bro
-            pass # in python you can't have blank spaces under tabbed things, so often pass is used to leave the exception
+            result.append(port) 
+        except (OSError, serial.SerialException): 
+            pass 
     return result
 
 
@@ -34,17 +34,17 @@ def loopSerial(Text):
     
     while True:
         
-        sleep(0.1) #serial goes in 0.1 second intervals after synchronizing
-        serialData=str(ser.readline()) #read from the serial and make it a string
-        serialData = serialData.replace("b'","").replace("'","").replace("\\r","").replace("\\n","") #get rid of carriage return and shit, nobody wants that...eww
+        sleep(0.1) 
+        serialData=str(ser.readline()) 
+        serialData = serialData.replace("b'","").replace("'","").replace("\\r","").replace("\\n","") 
 
-        if(serialData!=""): #if the string isn't blank, print
-            print(serialData) #formatted serial data
+        if(serialData!=""): 
+            print(serialData) 
             
     ser.close()
 
 
 if __name__ == '__main__':
-    comavailable = str(serial_ports()).replace("[","").replace("]","").replace("'","") #get rid of those stupid fucking brackets >:( tired of dat shit
-    loopSerial(comavailable) # throw comavailable into loopSerial
+    comavailable = str(serial_ports()).replace("[","").replace("]","").replace("'","") 
+    loopSerial(comavailable) 
     
